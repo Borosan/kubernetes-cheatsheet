@@ -1,2 +1,10 @@
 # Kubernetes Cheat sheet
 
+.
+
+.
+
+.
+
+
+
