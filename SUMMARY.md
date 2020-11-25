@@ -1,5 +1,5 @@
 # Table of contents
 
-* [Kubernetes Cheat sheet](README.md)
+* [Kubernetes Cheat Sheet](README.md)
 * [Refrences](refrences.md)
 

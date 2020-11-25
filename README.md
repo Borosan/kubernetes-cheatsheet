@@ -1,4 +1,4 @@
-# Kubernetes Cheat sheet
+# Kubernetes Cheat Sheet
 
 .
 
