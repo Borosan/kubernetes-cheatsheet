@@ -393,13 +393,15 @@ kubectl get pods -n=[namespace_name]
 kubectl create -f ./newpod.json
 ```
 
---Selector to filter on, supports ‘=’, ‘==’, and ‘!=’.
+ Field selectors let you [select Kubernetes resources](https://kubernetes.io/docs/concepts/overview/working-with-objects/kubernetes-objects) based on the value of one or more resource fields.  This `kubectl` command selects all Pods for which the value of the [`status.phase`](https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#pod-phase) field is `Running`:
 
 ```text
-
+kubectl get pods --field-selector status.phase=Running
 ```
 
-Help for kubectl -h.
+ You can use the `=`, `==`, and `!=` operators with field selectors \(`=` and `==` mean the same thing\). 
+
+use  kubectl -h for help. good luck!
 
 .
 
