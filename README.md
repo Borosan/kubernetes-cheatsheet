@@ -4,7 +4,9 @@
 
 It groups containers that make up an application into logical units for easy management and discovery. Kubernetes builds upon [15 years of experience of running production workloads at Google](http://queue.acm.org/detail.cfm?id=2898444), combined with best-of-breed ideas and practices from the community.
 
-**What is kubectl?** Kubectl is a command line tool used to run commands against Kubernetes clusters. It does this by authenticating with the Master Node of your cluster and making API calls to do a variety of management actions. The format of a kubectl command looks like this:
+**What is kubectl?** Kubectl is a command line tool used to run commands against Kubernetes clusters. It does this by authenticating with the Master Node of your cluster and making API calls to do a variety of management actions. 
+
+The format of a kubectl command looks like this:
 
 ```text
 kubectl [command] [type] [name] [flags]
@@ -14,6 +16,18 @@ kubectl [command] [type] [name] [flags]
 * \[type\]: any Kubernetes resource, whether automatically provided by Kubernetes \(like a service or a pod\) or created by you with a Custom Resource Definition
 * \[name\]: the name you have given the resource — if you omit the name, kubectl will return every resource specified by the type
 * \[flags\]: specify any additional global or command specific options such as the output format
+
+**What is kubeconfig ?** kubeconfig is a configuration file which is used by kubectl  In order to access your Kubernetes cluster.  The default kubectl configuration file is located at `~/.kube/config` and is referred to as the kubeconfig file.
+
+kubeconfig files organize information about clusters, users, namespaces, and authentication mechanisms. The kubectl command uses these files to find the information it needs to choose a cluster and communicate with it. 
+
+The loading order follows these rules:
+
+1. If the `--kubeconfig` flag is set, then only the given file is loaded. The flag may only be set once and no merging takes place.
+2. If the `$KUBECONFIG` environment variable is set, then it is parsed as a list of filesystem paths according to the normal path delimiting rules for your system.
+3. Otherwise, the `${HOME}/.kube/config` file is used and no merging takes place.
+
+If you see a message similar to the following, `kubectl` is not configured correctly or is not able to connect to a Kubernetes cluster.
 
 ### Cluster Management
 
@@ -45,6 +59,9 @@ Shortcode = **ds**
 #List one or more daemonsets
 kubectl get daemonset
 
+#Display the detailed state of daemonsets within a namespace
+kubectl describe ds <daemonset_name> -n <namespace_name>
+
 #Edit and update the definition of one or more daemonset
 kubectl edit daemonset <daemonset_name>
 
@@ -56,9 +73,6 @@ kubectl delete daemonset <daemonset_name>
 
 #Manage the rollout of a daemonset
 kubectl rollout daemonset
-
-#Display the detailed state of daemonsets within a namespace
-kubectl describe ds <daemonset_name> -n <namespace_name>
 ```
 
 ### Deployments
@@ -83,6 +97,12 @@ kubectl delete deployment <deployment_name>
 
 #See the rollout status of a deployment
 kubectl rollout status deployment <deployment_name>
+
+#See the rollout history of a deployment
+kubectl rollout history deployment <deployment_name>
+
+#bring down the new replicaset and bring up the old ones
+kubectl rollout undo deployment/<deployment_name>
 ```
 
 ### Events
@@ -117,9 +137,6 @@ kubectl logs --since=1h <pod_name>
 
 #Get the most recent 20 lines of logs
 kubectl logs --tail=20 <pod_name>
-
-#Get logs from a service and optionally select which container
-kubectl logs -f <service_name> [-c <$container>]
 
 #Print the logs for a pod and follow new logs
 kubectl logs -f <pod_name>
@@ -186,17 +203,17 @@ kubectl top namespace <namespace_name>
 Shortcode = **no**.
 
 ```text
-#Update the taints on one or more nodes
-kubectl taint node <node_name>
-
 #List one or more nodes
 kubectl get node
 
 #Delete a node or multiple nodes
 kubectl delete node <node_name>
 
-#Display Resource usage (CPU/Memory/Storage) for nodes
-kubectl top node
+#edit a node
+kubectl edit node <node_name>
+
+#Display Resource usage (CPU/Memory/Storage) for node(s)
+kubectl top node <node_name> 
 
 #Resource allocation per node
 kubectl describe nodes | grep Allocated -A 5
@@ -206,6 +223,9 @@ kubectl get pods -o wide | grep <node_name>
 
 #Annotate a node
 kubectl annotate node <node_name>
+
+#Update the taints on one or more nodes
+kubectl taint node <node_name> <taint_name> 
 
 #Mark a node as unschedulable
 kubectl cordon node <node_name>
@@ -217,7 +237,10 @@ kubectl uncordon node <node_name>
 kubectl drain node <node_name>
 
 #Add or update the labels of one or more nodes
-kubectl label node
+kubectl label nodes <node-name> disktype=ssd
+
+#list nodes and their labels
+kubectl get nodes --show-labels
 ```
 
 ### Pods
@@ -237,11 +260,14 @@ kubectl create pod <pod_name>
 #Delete a pod
 kubectl delete pod <pod_name>
 
+#edit a pod
+kubectl edit pod <pod_name>
+
 #Get interactive shell on a a single-container pod
 kubectl exec -it <pod_name> /bin/sh
 
 #Execute a command against a container in a pod
-kubectl exec <pod_name> -c <container_name> <command>
+kubectl exec <pod_name> -c <container_name> -- <command>
 
 #Display Resource usage (CPU/Memory/Storage) for pods
 kubectl top pod
@@ -250,7 +276,7 @@ kubectl top pod
 kubectl annotate pod <pod_name> <annotation>
 
 #Add or update the label of a pod
-kubectl label pod <pod_name>
+kubectl label pods <pod_name> env=prod  
 ```
 
 ### Replication Controllers
@@ -262,7 +288,7 @@ Shortcode = **rc**
 kubectl get rc
 
 #List the replication controllers by namespace
-kubectl get rc --namespace=”<namespace_name>”
+kubectl get rc --namespace=<namespace_name>
 ```
 
 ### ReplicaSets
@@ -277,7 +303,7 @@ kubectl get replicasets
 kubectl describe replicasets <replicaset_name>
 
 #Scale a ReplicaSet
-kubectl scale --replicas=[x] 
+kubectl scale --replicas=[x] replicaset <replicaset_name>
 ```
 
 ### Secrets
