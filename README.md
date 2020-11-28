@@ -188,6 +188,9 @@ kubectl logs <pod_name> pod.log
 
 #View the logs for a previously failed pod
 kubectl logs --previous <pod_name>
+
+#Watch logs in real time:
+kubectl attach <pod_name>
 ```
 
 _For logs we also recommend using a tool developed by Johan Haleby called Kubetail. This is a bash script that will allow you to get logs from multiple pods simultaneously. You can learn more about it at its_ [_Github repository_](https://github.com/johanhaleby/kubetail)_._
