@@ -35,6 +35,9 @@ If you see a message similar to the following, `kubectl` is not configured corre
 #Display endpoint information about the master and services in the cluster
 kubectl cluster-info
 
+#Display the status of all components in the cluster
+kubectl get componentstatuses
+
 #Display the Kubernetes version running on the client and server
 kubectl version
 
@@ -49,6 +52,24 @@ kubectl api-versions
 
 #List everything
 kubectl get all --all-namespaces
+```
+
+### ConfigMaps
+
+Shortcode=**cm**
+
+```text
+#Display ConfigMaps information
+kubectl get configmaps
+
+#create a configmap form a file
+kubectl create configmap <my-cmname> --from-file=path/to/configmap/
+
+#Display detailed information of a configmap
+kubectl describe configmaps <configmap_name>
+
+#delete a configmap
+kubectl delete configmap  <configmap_name>
 ```
 
 ### Daemonsets
@@ -95,6 +116,9 @@ kubectl create deployment <deployment_name>
 #Delete deployments
 kubectl delete deployment <deployment_name>
 
+#scale a deployment
+kubectl scale deployment <deployment_name> --replicas=[X]
+
 #See the rollout status of a deployment
 kubectl rollout status deployment <deployment_name>
 
@@ -103,6 +127,9 @@ kubectl rollout history deployment <deployment_name>
 
 #bring down the new replicaset and bring up the old ones
 kubectl rollout undo deployment/<deployment_name>
+
+#expose a deployment as a kubernetes service (type can be  NodePort/ClusterIP for on-promise cluster)
+kubectl expose deployment <deployment_name> --type=NodePort --targetport=80 --name=<myapp-service>
 ```
 
 ### Events
@@ -124,6 +151,18 @@ kubectl get events --field-selector involvedObject.kind=Node, involvedObject.nam
 
 #Filter out normal events from a list of events
 kubectl get events --field-selector type!=Normal
+```
+
+### Ingress
+
+Shortcode=**ing**
+
+```text
+#List 
+kubectl get ingress <ingress-resource-name>
+
+# Display detailed information about an ingress resource
+kubectl describe ingress <ingress-resource-name>
 ```
 
 ### Logs
@@ -380,6 +419,12 @@ In Kubectl you can specify optional flags with commands. Here are some of the mo
 kubectl get pods -o wide 
 ```
 
+ `--dry-run` you can generate the yaml file  using  kubectl command,  with out creating that object`:`
+
+```text
+kubectl create pod <pod_name> --image=nginx --dry-run -o yaml > my-pod.yaml
+```
+
 -n Shorthand for --namespace. For example, if you’d like to list all the Pods in a specific Namespace you would do this command:
 
 ```text
@@ -393,7 +438,7 @@ kubectl get pods -n=[namespace_name]
 kubectl create -f ./newpod.json
 ```
 
- Field selectors let you [select Kubernetes resources](https://kubernetes.io/docs/concepts/overview/working-with-objects/kubernetes-objects) based on the value of one or more resource fields.  This `kubectl` command selects all Pods for which the value of the [`status.phase`](https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#pod-phase) field is `Running`:
+ `--field-selector`let you [select Kubernetes resources](https://kubernetes.io/docs/concepts/overview/working-with-objects/kubernetes-objects) based on the value of one or more resource fields.  This `kubectl` command selects all Pods for which the value of the [`status.phase`](https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#pod-phase) field is `Running`:
 
 ```text
 kubectl get pods --field-selector status.phase=Running
