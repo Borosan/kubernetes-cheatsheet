@@ -261,7 +261,7 @@ kubectl describe nodes | grep Allocated -A 5
 kubectl get pods -o wide | grep <node_name>
 
 #Annotate a node
-kubectl annotate node <node_name>
+kubectl annotate node <node_name> <annotation>
 
 #Update the taints on one or more nodes
 kubectl taint node <node_name> <taint_name> 
@@ -373,10 +373,13 @@ kubectl get services
 kubectl describe services
 
 #Expose a replication controller, deployment or pod as a new Kubernetes service
-kubectl expose deployment [deployment_name]
+kubectl expose deployment <deployment_name>
 
 #Edit and update the definition of one or more services
-kubectl edit services
+kubectl edit services <service_name>
+
+#delete a service
+kubectl delete services <service_name>
 ```
 
 ### Service Accounts
@@ -432,7 +435,7 @@ kubectl get pods --namespace=[namespace_name]
 kubectl get pods -n=[namespace_name]
 ```
 
--f Filename, directory, or URL to files to use to create a resource. For example when creating a pod using data in a file named newpod.json.
+`-f Filename`, directory, or URL to files to use to create a resource. For example when creating a pod using data in a file named newpod.json.
 
 ```text
 kubectl create -f ./newpod.json
@@ -446,7 +449,16 @@ kubectl get pods --field-selector status.phase=Running
 
  You can use the `=`, `==`, and `!=` operators with field selectors \(`=` and `==` mean the same thing\). 
 
-use  kubectl -h for help. good luck!
+ `-h` for getting help:
+
+```text
+kubectl -h
+kubectl create -h
+kubectl run -h
+kubectl explain deploy.spec
+```
+
+good luck!
 
 .
 
