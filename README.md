@@ -301,12 +301,85 @@ kubectl delete secret <secret_name>
 Shortcode = **svc**
 
 ```text
+#List one or more services
+kubectl get services
+
+#Display the detailed state of a service
+kubectl describe services
+
+#Expose a replication controller, deployment or pod as a new Kubernetes service
+kubectl expose deployment [deployment_name]
+
+#Edit and update the definition of one or more services
+kubectl edit services
+```
+
+### Service Accounts
+
+Shortcode = **sa**
+
+```text
+#List service accounts
+kubectl get serviceaccounts
+
+#Display the detailed state of one or more service accounts
+kubectl describe serviceaccounts
+
+#Replace a service account
+kubectl replace serviceaccount
+
+#Delete a service account
+kubectl delete serviceaccount <service_account_name>
+```
+
+### StatefulSet
+
+Shortcode = **sts**
+
+```text
+#List StatefulSet
+kubectl get statefulset
+
+#Delete StatefulSet only (not pods)
+kubectl delete statefulset/[stateful_set_name] --cascade=false
+```
+
+### Common Options
+
+In Kubectl you can specify optional flags with commands. Here are some of the most common and useful ones. 
+
+-o Output format. For example if you wanted to list all of the pods in ps output format with more information:
+
+```text
+kubectl get pods -o wide 
+```
+
+-n Shorthand for --namespace. For example, if you’d like to list all the Pods in a specific Namespace you would do this command:
+
+```text
+kubectl get pods --namespace=[namespace_name]
+kubectl get pods -n=[namespace_name]
+```
+
+-f Filename, directory, or URL to files to use to create a resource. For example when creating a pod using data in a file named newpod.json.
+
+```text
+kubectl create -f ./newpod.json
+```
+
+--Selector to filter on, supports ‘=’, ‘==’, and ‘!=’.
+
+```text
 
 ```
 
+Help for kubectl -h.
+
+.
+
 .
 
 .
 
-
+Collected by Payam Borosan
 
