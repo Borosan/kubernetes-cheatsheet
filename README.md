@@ -527,6 +527,16 @@ kubectl get pods -l 'environment in (production,test),tier notin (frontend,backe
 kubectl get pods -n kube-system -w
 ```
 
+`--record`  Add the current command as an annotation to the resource. The recorded change is useful for future introspection. For example, to see the commands executed in each Deployment revision:
+
+```text
+#it would add CHANGE-CAUSE
+kubectl create -f deployment-definition.yml --record 
+
+#Now it shows CHANGE-CAUSE
+kubectl rollout history deployment/myapp-deployment
+```
+
 `-h` for getting help:
 
 ```text
