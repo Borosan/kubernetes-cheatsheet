@@ -353,7 +353,7 @@ kubectl label pods <pod_name> env=prod
 kubectl get pods --show-labels
 ```
 
-### PersistentVolume
+### Persistent Volume
 
 Shortcode=**pv**
 
@@ -365,7 +365,7 @@ kubectl get pv
 kubectl describe pv <pv_name>
 ```
 
-### **PersistentVolumeClaim**
+### **Persistent Volume Claim**
 
 shortcode=**pvc**
 
