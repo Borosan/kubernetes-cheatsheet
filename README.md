@@ -52,6 +52,15 @@ kubectl api-versions
 
 #List everything
 kubectl get all --all-namespaces
+
+#Get a list of contexts
+kubectl config get-contexts
+
+#Get the current context
+kubectl config current-context
+
+#Switch current context
+kubectl config use-context <context_name>
 ```
 
 ### ConfigMaps
@@ -227,6 +236,9 @@ kubectl get namespace <namespace_name>
 #Display the detailed state of one or more namespace
 kubectl describe namespace <namespace_name>
 
+#Set default namesapce
+kubectl config set-context $(kubectl config current-context) --namespace=<my-namespace>
+
 #Create namespace <name>
 kubectl create namespace <namespace_name>
 
@@ -246,7 +258,7 @@ Shortcode = **no**.
 
 ```text
 #List one or more nodes
-kubectl get node
+kubectl get nodes
 
 #Delete a node or multiple nodes
 kubectl delete node <node_name>
@@ -291,7 +303,7 @@ Shortcode = **po**
 
 ```text
 #List one or more pods
-kubectl get pod
+kubectl get pods
 
 #Display the detailed state of a pods
 kubectl describe pod <pod_name>
@@ -318,7 +330,10 @@ kubectl top pod
 kubectl annotate pod <pod_name> <annotation>
 
 #Add or update the label of a pod
-kubectl label pods <pod_name> env=prod  
+kubectl label pods <pod_name> env=prod
+
+#Get pods showing labels
+kubectl get pods --show-labels
 ```
 
 ### Replication Controllers
@@ -452,7 +467,18 @@ kubectl get pods --field-selector status.phase=Running
 
  You can use the `=`, `==`, and `!=` operators with field selectors \(`=` and `==` mean the same thing\). 
 
- `-h` for getting help:
+```text
+kubectl get pods -l environment=production,tier!=frontend
+kubectl get pods -l 'environment in (production,test),tier notin (frontend,backend)'
+```
+
+ --watch or -w - watch for changes:
+
+```text
+kubectl get pods -n kube-system -w
+```
+
+`-h` for getting help:
 
 ```text
 kubectl -h
