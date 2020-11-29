@@ -128,14 +128,25 @@ kubectl delete deployment <deployment_name>
 #scale a deployment
 kubectl scale deployment <deployment_name> --replicas=[X]
 
+#Set Autoscaling config
+kubectl autoscale deployment <deployment_name> --min=10 --max=15 --cpu-percent=80
+
 #See the rollout status of a deployment
 kubectl rollout status deployment <deployment_name>
 
 #See the rollout history of a deployment
 kubectl rollout history deployment <deployment_name>
+kubectl rollout history deployment <deployment_name> --reversion=2
 
 #bring down the new replicaset and bring up the old ones
 kubectl rollout undo deployment/<deployment_name>
+kubectl rollout undo deployment/<deployment_name> --to-revision=2
+
+#Pause a rollout
+kubectl rollout pause deployment/<my_deployment>
+
+#Resume a rollout
+kubectl rollout resume deployment/<my_deployment>
 
 #expose a deployment as a kubernetes service (type can be  NodePort/ClusterIP for on-promise cluster)
 kubectl expose deployment <deployment_name> --type=NodePort --targetport=80 --name=<myapp-service>
@@ -180,6 +191,9 @@ kubectl describe ingress <ingress-resource-name>
 #Print the logs for a pod
 kubectl logs <pod_name>
 
+#Quering pod logs using label selector
+kubectl logs -l app=<my-app>
+
 #Print the logs for the last hour for a pod
 kubectl logs --since=1h <pod_name>
 
@@ -194,6 +208,9 @@ kubectl logs -c <container_name> <pod_name>
 
 #Output the logs for a pod into a file named ‘pod.log’
 kubectl logs <pod_name> pod.log
+
+#Copy files out of pod (Requires tar binary in container).
+kubectl cp <pod_name>:/var/log .
 
 #View the logs for a previously failed pod
 kubectl logs --previous <pod_name>
@@ -361,6 +378,12 @@ kubectl describe replicasets <replicaset_name>
 
 #Scale a ReplicaSet
 kubectl scale --replicas=[x] replicaset <replicaset_name>
+
+#autoscale replicaset
+kubectl autoscale rs <replicaset_name> --max=10 --min=3 --cpu-percent=50
+
+#Delete a ReplicaSet
+kubectl delete replicasets <replicaset-name>
 ```
 
 ### Secrets
@@ -459,7 +482,9 @@ kubectl get pods -n=[namespace_name]
 kubectl create -f ./newpod.json
 ```
 
- `--field-selector`let you [select Kubernetes resources](https://kubernetes.io/docs/concepts/overview/working-with-objects/kubernetes-objects) based on the value of one or more resource fields.  This `kubectl` command selects all Pods for which the value of the [`status.phase`](https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#pod-phase) field is `Running`:
+ _**Create vs Apply** :kubectl create can be used to create new resources while kubectl apply inserts or updates resources while maintaining any manual changes made like scaling pods._
+
+`--field-selector`let you [select Kubernetes resources](https://kubernetes.io/docs/concepts/overview/working-with-objects/kubernetes-objects) based on the value of one or more resource fields.  This `kubectl` command selects all Pods for which the value of the [`status.phase`](https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#pod-phase) field is `Running`:
 
 ```text
 kubectl get pods --field-selector status.phase=Running
