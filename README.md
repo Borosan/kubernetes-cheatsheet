@@ -353,6 +353,30 @@ kubectl label pods <pod_name> env=prod
 kubectl get pods --show-labels
 ```
 
+### PersistentVolume
+
+Shortcode=**pv**
+
+```text
+#List one or more persistent volumes
+kubectl get pv
+
+#Display the detailed information about a persistent volume
+kubectl describe pv <pv_name>
+```
+
+### **PersistentVolumeClaim**
+
+shortcode=**pvc**
+
+```text
+#List one or more persistent volume claims
+kubectl get pvc
+
+#Display the detailed information about a persistent volume claim
+kubectl describe pvc <pvc_name>
+```
+
 ### Replication Controllers
 
 Shortcode = **rc**
