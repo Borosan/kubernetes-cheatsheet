@@ -348,7 +348,7 @@ kubectl edit pod <pod_name>
 kubectl exec -it <pod_name> /bin/sh
 
 #Execute a command against a container in a pod
-kubectl exec <pod_name> -c <container_name> -- <command>
+kubectl exec -it <pod_name> -c <container_name> -- <command>
 
 #Display Resource usage (CPU/Memory/Storage) for pods
 kubectl top pod
