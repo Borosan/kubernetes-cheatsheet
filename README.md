@@ -139,13 +139,16 @@ kubectl autoscale deployment <deployment_name> --min=10 --max=15 --cpu-percent=8
 #See the rollout status of a deployment
 kubectl rollout status deployment <deployment_name>
 
-#See the rollout history of a deployment
+#see rollout history of all deployments
+kubectl rollout history deployment
+
+#See the overview of recent changes
 kubectl rollout history deployment <deployment_name>
 kubectl rollout history deployment <deployment_name> --reversion=2
 
 #bring down the new replicaset and bring up the old ones
 kubectl rollout undo deployment/<deployment_name>
-kubectl rollout undo deployment/<deployment_name> --to-revision=2
+kubectl rollout undo deployment/<deployment_name> --to-revision=1
 
 #Pause a rollout
 kubectl rollout pause deployment/<my_deployment>
@@ -558,8 +561,9 @@ kubectl run -h
 explain command is always handy:
 
 ```text
-kubectl explain pods.metadata
+kubectl explain deployment
 kubectl explain deployment.spec
+kubectl explain deployment.spec.strategy
 ```
 
 good luck!
