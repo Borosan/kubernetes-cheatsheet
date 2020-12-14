@@ -116,7 +116,7 @@ Shortcode = **deploy**
 
 ```text
 #List one or more deployments
-kubectl get deployment
+kubectl get deployments
 
 #Display the detailed state of one or more deployments
 kubectl describe deployment <deployment_name>
@@ -553,7 +553,13 @@ kubectl rollout history deployment/myapp-deployment
 kubectl -h
 kubectl create -h
 kubectl run -h
-kubectl explain deploy.spec
+```
+
+explain command is always handy:
+
+```text
+kubectl explain pods.metadata
+kubectl explain deployment.spec
 ```
 
 good luck!
