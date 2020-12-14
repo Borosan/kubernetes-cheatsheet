@@ -272,6 +272,8 @@ kubectl edit namespace <namespace_name>
 kubectl top namespace <namespace_name>
 ```
 
+_The optional_ [_kubectx_](https://github.com/ahmetb/kubectx) _package can be used to make switching between namespaces easier, it contains **kubectx** to switch between context, and **kubens** to switch between Namespaces._
+
 ### Nodes
 
 Shortcode = **no**.
