@@ -52,6 +52,15 @@ kubectl api-versions
 
 #List everything
 kubectl get all --all-namespaces
+
+#Get a list of contexts
+kubectl config get-contexts
+
+#Get the current context
+kubectl config current-context
+
+#Switch current context
+kubectl config use-context <context_name>
 ```
 
 ### ConfigMaps
@@ -119,14 +128,25 @@ kubectl delete deployment <deployment_name>
 #scale a deployment
 kubectl scale deployment <deployment_name> --replicas=[X]
 
+#Set Autoscaling config
+kubectl autoscale deployment <deployment_name> --min=10 --max=15 --cpu-percent=80
+
 #See the rollout status of a deployment
 kubectl rollout status deployment <deployment_name>
 
 #See the rollout history of a deployment
 kubectl rollout history deployment <deployment_name>
+kubectl rollout history deployment <deployment_name> --reversion=2
 
 #bring down the new replicaset and bring up the old ones
 kubectl rollout undo deployment/<deployment_name>
+kubectl rollout undo deployment/<deployment_name> --to-revision=2
+
+#Pause a rollout
+kubectl rollout pause deployment/<my_deployment>
+
+#Resume a rollout
+kubectl rollout resume deployment/<my_deployment>
 
 #expose a deployment as a kubernetes service (type can be  NodePort/ClusterIP for on-promise cluster)
 kubectl expose deployment <deployment_name> --type=NodePort --targetport=80 --name=<myapp-service>
@@ -171,6 +191,9 @@ kubectl describe ingress <ingress-resource-name>
 #Print the logs for a pod
 kubectl logs <pod_name>
 
+#Quering pod logs using label selector
+kubectl logs -l app=<my-app>
+
 #Print the logs for the last hour for a pod
 kubectl logs --since=1h <pod_name>
 
@@ -185,6 +208,9 @@ kubectl logs -c <container_name> <pod_name>
 
 #Output the logs for a pod into a file named ‘pod.log’
 kubectl logs <pod_name> pod.log
+
+#Copy files out of pod (Requires tar binary in container).
+kubectl cp <pod_name>:/var/log .
 
 #View the logs for a previously failed pod
 kubectl logs --previous <pod_name>
@@ -227,6 +253,9 @@ kubectl get namespace <namespace_name>
 #Display the detailed state of one or more namespace
 kubectl describe namespace <namespace_name>
 
+#Set default namesapce
+kubectl config set-context $(kubectl config current-context) --namespace=<my-namespace>
+
 #Create namespace <name>
 kubectl create namespace <namespace_name>
 
@@ -246,7 +275,7 @@ Shortcode = **no**.
 
 ```text
 #List one or more nodes
-kubectl get node
+kubectl get nodes
 
 #Delete a node or multiple nodes
 kubectl delete node <node_name>
@@ -291,7 +320,7 @@ Shortcode = **po**
 
 ```text
 #List one or more pods
-kubectl get pod
+kubectl get pods
 
 #Display the detailed state of a pods
 kubectl describe pod <pod_name>
@@ -318,7 +347,37 @@ kubectl top pod
 kubectl annotate pod <pod_name> <annotation>
 
 #Add or update the label of a pod
-kubectl label pods <pod_name> env=prod  
+kubectl label pods <pod_name> env=prod
+
+#Get pods showing labels
+kubectl get pods --show-labels
+
+#Remove the lable of a pod
+kubectl label pods <pod_name>
+```
+
+### Persistent Volume
+
+Shortcode=**pv**
+
+```text
+#List one or more persistent volumes
+kubectl get pv
+
+#Display the detailed information about a persistent volume
+kubectl describe pv <pv_name>
+```
+
+### **Persistent Volume Claim**
+
+shortcode=**pvc**
+
+```text
+#List one or more persistent volume claims
+kubectl get pvc
+
+#Display the detailed information about a persistent volume claim
+kubectl describe pvc <pvc_name>
 ```
 
 ### Replication Controllers
@@ -346,6 +405,12 @@ kubectl describe replicasets <replicaset_name>
 
 #Scale a ReplicaSet
 kubectl scale --replicas=[x] replicaset <replicaset_name>
+
+#autoscale replicaset
+kubectl autoscale rs <replicaset_name> --max=10 --min=3 --cpu-percent=50
+
+#Delete a ReplicaSet
+kubectl delete replicasets <replicaset-name>
 ```
 
 ### Secrets
@@ -444,7 +509,9 @@ kubectl get pods -n=[namespace_name]
 kubectl create -f ./newpod.json
 ```
 
- `--field-selector`let you [select Kubernetes resources](https://kubernetes.io/docs/concepts/overview/working-with-objects/kubernetes-objects) based on the value of one or more resource fields.  This `kubectl` command selects all Pods for which the value of the [`status.phase`](https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#pod-phase) field is `Running`:
+ _**Create vs Apply** :kubectl create can be used to create new resources while kubectl apply inserts or updates resources while maintaining any manual changes made like scaling pods._
+
+`--field-selector`let you [select Kubernetes resources](https://kubernetes.io/docs/concepts/overview/working-with-objects/kubernetes-objects) based on the value of one or more resource fields.  This `kubectl` command selects all Pods for which the value of the [`status.phase`](https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#pod-phase) field is `Running`:
 
 ```text
 kubectl get pods --field-selector status.phase=Running
@@ -452,7 +519,28 @@ kubectl get pods --field-selector status.phase=Running
 
  You can use the `=`, `==`, and `!=` operators with field selectors \(`=` and `==` mean the same thing\). 
 
- `-h` for getting help:
+```text
+kubectl get pods -l environment=production,tier!=frontend
+kubectl get pods -l 'environment in (production,test),tier notin (frontend,backend)'
+```
+
+ --watch or -w - watch for changes:
+
+```text
+kubectl get pods -n kube-system -w
+```
+
+`--record`  Add the current command as an annotation to the resource. The recorded change is useful for future introspection. For example, to see the commands executed in each Deployment revision:
+
+```text
+#it would add CHANGE-CAUSE
+kubectl create -f deployment-definition.yml --record 
+
+#Now it shows CHANGE-CAUSE
+kubectl rollout history deployment/myapp-deployment
+```
+
+`-h` for getting help:
 
 ```text
 kubectl -h
