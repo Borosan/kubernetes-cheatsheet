@@ -53,6 +53,9 @@ kubectl api-versions
 #List everything
 kubectl get all --all-namespaces
 
+#List components that match label
+kubectl get all --selector <label>
+
 #Get a list of contexts
 kubectl config get-contexts
 
