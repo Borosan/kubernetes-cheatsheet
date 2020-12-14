@@ -66,6 +66,8 @@ kubectl config current-context
 kubectl config use-context <context_name>
 ```
 
+_The context consist of the clustername and namespace that the current user connects to._
+
 ### ConfigMaps
 
 Shortcode=**cm**
@@ -272,7 +274,7 @@ kubectl edit namespace <namespace_name>
 kubectl top namespace <namespace_name>
 ```
 
-_The optional_ [_kubectx_](https://github.com/ahmetb/kubectx) _package can be used to make switching between namespaces easier, it contains **kubectx** to switch between context, and **kubens** to switch between Namespaces._
+_The optional_ [_kubectx_](https://github.com/ahmetb/kubectx) _package can be used to make switching between namespaces easier, it contains **kubectx** to switch between context, and **kubens** to switch between Namespaces.  If multiple clusters are available to a kubernetes client, switching context is relevant. If multiple namespaces exist within a cluster, switching namespaces is relevant._
 
 ### Nodes
 
