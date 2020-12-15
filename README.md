@@ -347,7 +347,11 @@ kubectl edit pod <pod_name>
 #Get interactive shell on a a single-container pod
 kubectl exec -it <pod_name> /bin/sh
 
-#Execute a command against a container in a pod
+
+#Execute a command in a pod (pod contains a single container)
+kubectl exec -it <pod_name>  -- <command>
+
+#Execute a command against a container in a pod (pod contains multiple containers)
 kubectl exec -it <pod_name> -c <container_name> -- <command>
 
 #Display Resource usage (CPU/Memory/Storage) for pods
@@ -450,8 +454,8 @@ kubectl get services
 #Display the detailed state of a service
 kubectl describe services
 
-#Expose a replication controller, deployment or pod as a new Kubernetes service
-kubectl expose deployment <deployment_name>
+#Expose a pod, service , rc or rs, deployment as a new Kubernetes service
+kubectl expose deployment <deployment_name> --port=[X] --target-port=[Y]
 
 #Edit and update the definition of one or more services
 kubectl edit services <service_name>
@@ -459,6 +463,10 @@ kubectl edit services <service_name>
 #delete a service
 kubectl delete services <service_name>
 ```
+
+_Select service type using --type . it could be ClusterIP, NodePort, LoadBalancer or ExternalName. Default is 'ClusterIP'._
+
+_Services are using Labels, So it is very important for a Service that  a Label is present, if you try to expose something that doesn't have a lablel, you can use a Service on top of that._
 
 ### Service Accounts
 
