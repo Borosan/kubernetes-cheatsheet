@@ -340,8 +340,11 @@ kubectl get pods
 #Display the detailed state of a pods
 kubectl describe pod <pod_name>
 
-#Create a pod
-kubectl create pod <pod_name>
+#create a pod, impremitive
+kubectl run <pod_name> --image=<image_name>
+
+#Create a pod from a yaml file
+kubectl create pod <pod_name> -f <pod.yaml>
 
 #Delete a pod
 kubectl delete pod <pod_name>
