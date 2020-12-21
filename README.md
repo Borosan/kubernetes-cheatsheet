@@ -53,6 +53,9 @@ kubectl api-versions
 #List everything
 kubectl get all --all-namespaces
 
+#List all objects in current namespace plus labels
+kubectl get all --show-labels
+
 #List components that match label
 kubectl get all --selector <label>
 
@@ -159,6 +162,8 @@ kubectl rollout resume deployment/<my_deployment>
 #expose a deployment as a kubernetes service (type can be  NodePort/ClusterIP for on-promise cluster)
 kubectl expose deployment <deployment_name> --type=NodePort --targetport=80 --name=<myapp-service>
 ```
+
+_If you use kubectl create to create a deployment, it will automatically get a lable with the  name  app=&lt;NameofDeployment&gt; ._ 
 
 ### Events
 
