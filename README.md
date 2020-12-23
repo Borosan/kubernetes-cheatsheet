@@ -128,7 +128,7 @@ kubectl describe deployment <deployment_name>
 kubectl edit deployment <deployment_name>
 
 #Create one a new deployment
-kubectl create deployment <deployment_name>
+kubectl create deployment --image=<img_name> <deployment_name>
 
 #Delete deployments
 kubectl delete deployment <deployment_name>
@@ -344,7 +344,7 @@ kubectl describe pod <pod_name>
 kubectl run <pod_name> --image=<image_name>
 
 #Create a pod from a yaml file
-kubectl create pod <pod_name> -f <pod.yaml>
+kubectl create pod -f <pod.yaml>
 
 #Delete a pod
 kubectl delete pod <pod_name>
