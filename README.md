@@ -200,6 +200,8 @@ kubectl describe ingress <ingress-resource-name>
 
 ### Logs
 
+Container doesn't have stout, to see what's happening within a container use logs:
+
 ```text
 #Print the logs for a pod
 kubectl logs <pod_name>
@@ -337,14 +339,17 @@ Shortcode = **po**
 #List one or more pods
 kubectl get pods
 
+#dumps all the pod yaml code on the screen
+kubectl get pods <pod_name> -o yaml
+
 #Display the detailed state of a pods
 kubectl describe pod <pod_name>
 
-#create a pod, impremitive
+#create a pod, impremitive (depricated)
 kubectl run <pod_name> --image=<image_name>
 
 #Create a pod from a yaml file
-kubectl create pod -f <pod.yaml>
+kubectl create -f <pod.yaml>
 
 #Delete a pod
 kubectl delete pod <pod_name>
@@ -377,6 +382,8 @@ kubectl get pods --show-labels
 #Remove the lable of a pod
 kubectl label pods <pod_name>
 ```
+
+_kubectl exec only works on pods!_
 
 ### Persistent Volume
 
