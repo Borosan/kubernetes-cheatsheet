@@ -121,6 +121,9 @@ Shortcode = **deploy**
 #List one or more deployments
 kubectl get deployments
 
+#dumps all the deployment yaml code on the screen
+kubectl get deployments <deployment_name> -o yaml
+
 #Display the detailed state of one or more deployments
 kubectl describe deployment <deployment_name>
 
@@ -241,9 +244,6 @@ _For logs we also recommend using a tool developed by Johan Haleby called Kubeta
 Another option for modifying objects is through Manifest Files. Using this method is highly recommend. It is done by using yaml files with all the necessary options for objects configured. Also it is recommended to store your  yaml files in a git repository, so you can track changes and streamline changes.
 
 ```text
-#Apply a configuration to an object by filename or stdin. Overrides the existing configuration.
-kubectl apply -f manifest_file.yaml
-
 #Create objects
 kubectl create -f manifest_file.yaml
 
@@ -255,7 +255,15 @@ kubectl create -f ‘url’
 
 #Delete an object
 kubectl delete -f manifest_file.yaml
+
+#Apply a configuration to an object by filename or stdin. Overrides the existing configuration.
+kubectl apply -f manifest_file.yaml
+
+#Replace a configuration to an object by filename or stdin.
+kubectl replace -f manifest_file.yaml
 ```
+
+_Incase of error while using `apply` or `replace`, use `delete` and then `create` combination._
 
 ### Namespaces
 
@@ -439,7 +447,7 @@ kubectl scale --replicas=[x] replicaset <replicaset_name>
 kubectl autoscale rs <replicaset_name> --max=10 --min=3 --cpu-percent=50
 
 #Delete a ReplicaSet
-kubectl delete replicasets <replicaset-name>
+kubectl delete replicaset <replicaset-name>
 ```
 
 ### Secrets
