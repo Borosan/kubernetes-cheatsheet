@@ -164,9 +164,17 @@ kubectl rollout resume deployment/<my_deployment>
 
 #expose a deployment as a kubernetes service (type can be  NodePort/ClusterIP for on-promise cluster)
 kubectl expose deployment <deployment_name> --type=NodePort --targetport=80 --name=<myapp-service>
+
+#Add label to a deployment
+kubectl lable deployments <deployment_name> state=LA
+
+#Show deployments labels
+kubectl get deployments --show-labels
 ```
 
 _If you use kubectl create to create a deployment, it will automatically get a lable with the  name  app=&lt;NameofDeployment&gt; ._ 
+
+_Label  plays an essential role in the monitoring that the kubernetes deployment is doing, label is used to make sure that the suffcient amount of pods are available._
 
 ### Events
 
@@ -200,6 +208,17 @@ kubectl get ingress <ingress-resource-name>
 # Display detailed information about an ingress resource
 kubectl describe ingress <ingress-resource-name>
 ```
+
+### Labels
+
+Labels play an essential role in the kubernetes.
+
+```text
+#General command for adding label to one of kubernetes resources
+kubectl label <resource_type> <resource_name> <label>
+```
+
+_Usually labels are applied automatically, or we add them trough the yaml files._
 
 ### Logs
 
@@ -388,7 +407,7 @@ kubectl label pods <pod_name> env=prod
 kubectl get pods --show-labels
 
 #Remove the lable of a pod
-kubectl label pods <pod_name>
+kubectl label pods <pod_name> <label>-
 ```
 
 _kubectl exec only works on pods!_
