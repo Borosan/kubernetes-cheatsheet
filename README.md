@@ -153,14 +153,14 @@ kubectl rollout history deployment <deployment_name>
 kubectl rollout history deployment <deployment_name> --reversion=2
 
 #bring down the new replicaset and bring up the old ones
-kubectl rollout undo deployment/<deployment_name>
-kubectl rollout undo deployment/<deployment_name> --to-revision=1
+kubectl rollout undo deployment <deployment_name>
+kubectl rollout undo deployment <deployment_name> --to-revision=1
 
 #Pause a rollout
-kubectl rollout pause deployment/<my_deployment>
+kubectl rollout pause deployment <my_deployment>
 
 #Resume a rollout
-kubectl rollout resume deployment/<my_deployment>
+kubectl rollout resume deployment <my_deployment>
 
 #expose a deployment as a kubernetes service (type can be  NodePort/ClusterIP for on-promise cluster)
 kubectl expose deployment <deployment_name> --type=NodePort --targetport=80 --name=<myapp-service>
