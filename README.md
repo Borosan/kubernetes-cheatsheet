@@ -493,10 +493,13 @@ Shortcode = **svc**
 #List one or more services
 kubectl get services
 
-#Display the detailed state of a service
-kubectl describe services
+#List endpoint pods of a service
+kubectl get endpoints <service_name>
 
-#Expose a pod, service , rc or rs, deployment as a new Kubernetes service
+#Display the detailed state of a service
+kubectl describe services <service_name>
+
+#Expose a deployment as a new Kubernetes service
 kubectl expose deployment <deployment_name> --port=[X] --target-port=[Y]
 
 #Edit and update the definition of one or more services
