@@ -82,6 +82,9 @@ kubectl get configmaps
 #create a configmap form a file
 kubectl create configmap <my-cmname> --from-file=path/to/configmap/
 
+#See the content of a configmap in yaml format
+#kubectl get configmap <configmap_name> -o yaml
+
 #Display detailed information of a configmap
 kubectl describe configmaps <configmap_name>
 
@@ -478,8 +481,11 @@ kubectl get secrets
 #List details about secrets
 kubectl describe secrets
 
-#Create a secret
-kubectl create secretc
+#Create a generic/docker registry/tls secret
+kubectl create secret generic <secret_name> --from-literal=user=user1 --from-literal=password=password
+
+#See the content of a secret in yaml format
+kubectl get secret <secret_name> -o yaml
 
 #Delete a secret
 kubectl delete secret <secret_name>
