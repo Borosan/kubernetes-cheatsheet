@@ -1,6 +1,6 @@
 # Refrences
 
-[https://kubernetes.io/](https://kubernetes.io/)
+[https://kubernetes.io/](https://kubernetes.io)
 
 [https://kubernetes.io/docs/reference/kubectl/overview/](https://kubernetes.io/docs/reference/kubectl/overview/)
 
@@ -10,7 +10,8 @@
 
 [https://www.bluematador.com/learn/kubectl-cheatsheet](https://www.bluematador.com/learn/kubectl-cheatsheet)
 
-[https://linuxacademy.com/site-content/uploads/2019/04/Kubernetes-Cheat-Sheet\_07182019.pdf](https://linuxacademy.com/site-content/uploads/2019/04/Kubernetes-Cheat-Sheet_07182019.pdf)
+[https://linuxacademy.com/site-content/uploads/2019/04/Kubernetes-Cheat-Sheet\_07182019.pdf](https://linuxacademy.com/site-content/uploads/2019/04/Kubernetes-Cheat-Sheet\_07182019.pdf)
+
+[https://github.com/RehanSaeed/Kubernetes-Cheat-Sheet](https://github.com/RehanSaeed/Kubernetes-Cheat-Sheet)
 
 .
-

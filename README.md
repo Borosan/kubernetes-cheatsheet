@@ -8,14 +8,14 @@ It groups containers that make up an application into logical units for easy man
 
 The format of a kubectl command looks like this:
 
-```text
+```
 kubectl [command] [type] [name] [flags]
 ```
 
-* \[command\]: specifies the action you want to perform like create, delete, get, apply
-* \[type\]: any Kubernetes resource, whether automatically provided by Kubernetes \(like a service or a pod\) or created by you with a Custom Resource Definition
-* \[name\]: the name you have given the resource — if you omit the name, kubectl will return every resource specified by the type
-* \[flags\]: specify any additional global or command specific options such as the output format
+* \[command]: specifies the action you want to perform like create, delete, get, apply
+* \[type]: any Kubernetes resource, whether automatically provided by Kubernetes (like a service or a pod) or created by you with a Custom Resource Definition
+* \[name]: the name you have given the resource — if you omit the name, kubectl will return every resource specified by the type
+* \[flags]: specify any additional global or command specific options such as the output format
 
 **What is kubeconfig ?** kubeconfig is a configuration file which is used by kubectl  In order to access your Kubernetes cluster.  The default kubectl configuration file is located at `~/.kube/config` and is referred to as the kubeconfig file.
 
@@ -31,7 +31,7 @@ If you see a message similar to the following, `kubectl` is not configured corre
 
 ### Cluster Management
 
-```text
+```
 #Display endpoint information about the master and services in the cluster
 kubectl cluster-info
 
@@ -75,7 +75,7 @@ _The context consist of the clustername and namespace that the current user conn
 
 Shortcode=**cm**
 
-```text
+```
 #Display ConfigMaps information
 kubectl get configmaps
 
@@ -96,7 +96,7 @@ kubectl delete configmap  <configmap_name>
 
 Shortcode = **ds**
 
-```text
+```
 #List one or more daemonsets
 kubectl get daemonset
 
@@ -120,7 +120,7 @@ kubectl rollout daemonset
 
 Shortcode = **deploy**
 
-```text
+```
 #List one or more deployments
 kubectl get deployments
 
@@ -175,7 +175,7 @@ kubectl lable deployments <deployment_name> state=LA
 kubectl get deployments --show-labels
 ```
 
-_If you use kubectl create to create a deployment, it will automatically get a lable with the  name  app=&lt;NameofDeployment&gt; ._ 
+_If you use kubectl create to create a deployment, it will automatically get a lable with the  name  app=\<NameofDeployment> . _
 
 _Label  plays an essential role in the monitoring that the kubernetes deployment is doing, label is used to make sure that the suffcient amount of pods are available._
 
@@ -183,7 +183,7 @@ _Label  plays an essential role in the monitoring that the kubernetes deployment
 
 Shortcode = **ev**
 
-```text
+```
 #List recent events for all resources in the system
 kubectl get events
 
@@ -204,7 +204,7 @@ kubectl get events --field-selector type!=Normal
 
 Shortcode=**ing**
 
-```text
+```
 #List 
 kubectl get ingress <ingress-resource-name>
 
@@ -216,7 +216,7 @@ kubectl describe ingress <ingress-resource-name>
 
 Labels play an essential role in the kubernetes.
 
-```text
+```
 #General command for adding label to one of kubernetes resources
 kubectl label <resource_type> <resource_name> <label>
 ```
@@ -227,7 +227,7 @@ _Usually labels are applied automatically, or we add them trough the yaml files.
 
 Container doesn't have stout, to see what's happening within a container use logs:
 
-```text
+```
 #Print the logs for a pod
 kubectl logs <pod_name>
 
@@ -259,13 +259,13 @@ kubectl logs --previous <pod_name>
 kubectl attach <pod_name>
 ```
 
-_For logs we also recommend using a tool developed by Johan Haleby called Kubetail. This is a bash script that will allow you to get logs from multiple pods simultaneously. You can learn more about it at its_ [_Github repository_](https://github.com/johanhaleby/kubetail)_._
+_For logs we also recommend using a tool developed by Johan Haleby called Kubetail. This is a bash script that will allow you to get logs from multiple pods simultaneously. You can learn more about it at its _[_Github repository_](https://github.com/johanhaleby/kubetail)_._
 
 ### Manifest Files
 
 Another option for modifying objects is through Manifest Files. Using this method is highly recommend. It is done by using yaml files with all the necessary options for objects configured. Also it is recommended to store your  yaml files in a git repository, so you can track changes and streamline changes.
 
-```text
+```
 #Create objects
 kubectl create -f manifest_file.yaml
 
@@ -285,13 +285,13 @@ kubectl apply -f manifest_file.yaml
 kubectl replace -f manifest_file.yaml
 ```
 
-_Incase of error while using `apply` or `replace`, use `delete` and then `create` combination._
+_Incase of error while using `apply `or `replace`, use `delete `and then `create `combination._
 
 ### Namespaces
 
 Shortcode = **ns**
 
-```text
+```
 #List one or more namespaces
 kubectl get namespace <namespace_name>
 
@@ -314,13 +314,13 @@ kubectl edit namespace <namespace_name>
 kubectl top namespace <namespace_name>
 ```
 
-_The optional_ [_kubectx_](https://github.com/ahmetb/kubectx) _package can be used to make switching between namespaces easier, it contains **kubectx** to switch between context, and **kubens** to switch between Namespaces.  If multiple clusters are available to a kubernetes client, switching context is relevant. If multiple namespaces exist within a cluster, switching namespaces is relevant._
+_The optional _[_kubectx_](https://github.com/ahmetb/kubectx)_ package can be used to make switching between namespaces easier, it contains** kubectx** to switch between context, and **kubens** to switch between Namespaces.  If multiple clusters are available to a kubernetes client, switching context is relevant. If multiple namespaces exist within a cluster, switching namespaces is relevant._
 
 ### Nodes
 
 Shortcode = **no**.
 
-```text
+```
 #List one or more nodes
 kubectl get nodes
 
@@ -365,7 +365,7 @@ kubectl get nodes --show-labels
 
 Shortcode = **po**
 
-```text
+```
 #List one or more pods
 kubectl get pods
 
@@ -419,7 +419,7 @@ _kubectl exec only works on pods!_
 
 Shortcode=**pv**
 
-```text
+```
 #List one or more persistent volumes
 kubectl get pv
 
@@ -431,7 +431,7 @@ kubectl describe pv <pv_name>
 
 shortcode=**pvc**
 
-```text
+```
 #List one or more persistent volume claims
 kubectl get pvc
 
@@ -443,7 +443,7 @@ kubectl describe pvc <pvc_name>
 
 Shortcode = **rc**
 
-```text
+```
 #List the replication controllers
 kubectl get rc
 
@@ -455,7 +455,7 @@ kubectl get rc --namespace=<namespace_name>
 
 Shortcode = **rs**
 
-```text
+```
 #List ReplicaSets
 kubectl get replicasets
 
@@ -474,7 +474,7 @@ kubectl delete replicaset <replicaset-name>
 
 ### Secrets
 
-```text
+```
 #List secrets
 kubectl get secrets
 
@@ -495,7 +495,7 @@ kubectl delete secret <secret_name>
 
 Shortcode = **svc**
 
-```text
+```
 #List one or more services
 kubectl get services
 
@@ -523,7 +523,7 @@ _Services are using Labels, So it is very important for a Service that  a Label 
 
 Shortcode = **sa**
 
-```text
+```
 #List service accounts
 kubectl get serviceaccounts
 
@@ -541,7 +541,7 @@ kubectl delete serviceaccount <service_account_name>
 
 Shortcode = **sts**
 
-```text
+```
 #List StatefulSet
 kubectl get statefulset
 
@@ -553,28 +553,28 @@ kubectl delete statefulset/[stateful_set_name] --cascade=false
 
 In Kubectl you can specify optional flags with commands. Here are some of the most common and useful ones. 
 
--o Output format. For example if you wanted to list all of the pods in ps output format with more information:
+\-o Output format. For example if you wanted to list all of the pods in ps output format with more information:
 
-```text
+```
 kubectl get pods -o wide 
 ```
 
- `--dry-run` you can generate the yaml file  using  kubectl command,  with out creating that object`:`
+`  --dry-run  `you can generate the yaml file  using  kubectl command,  with out creating that object`:`
 
-```text
+```
 kubectl create pod <pod_name> --image=nginx --dry-run -o yaml > my-pod.yaml
 ```
 
--n Shorthand for --namespace. For example, if you’d like to list all the Pods in a specific Namespace you would do this command:
+\-n Shorthand for --namespace. For example, if you’d like to list all the Pods in a specific Namespace you would do this command:
 
-```text
+```
 kubectl get pods --namespace=[namespace_name]
 kubectl get pods -n=[namespace_name]
 ```
 
 `-f Filename`, directory, or URL to files to use to create a resource. For example when creating a pod using data in a file named newpod.json.
 
-```text
+```
 kubectl create -f ./newpod.json
 ```
 
@@ -582,26 +582,26 @@ kubectl create -f ./newpod.json
 
 `--field-selector`let you [select Kubernetes resources](https://kubernetes.io/docs/concepts/overview/working-with-objects/kubernetes-objects) based on the value of one or more resource fields.  This `kubectl` command selects all Pods for which the value of the [`status.phase`](https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#pod-phase) field is `Running`:
 
-```text
+```
 kubectl get pods --field-selector status.phase=Running
 ```
 
- You can use the `=`, `==`, and `!=` operators with field selectors \(`=` and `==` mean the same thing\). 
+ You can use the `=`, `==`, and `!=` operators with field selectors (`=` and `==` mean the same thing). 
 
-```text
+```
 kubectl get pods -l environment=production,tier!=frontend
 kubectl get pods -l 'environment in (production,test),tier notin (frontend,backend)'
 ```
 
- --watch or -w - watch for changes:
+ \--watch or -w - watch for changes:
 
-```text
+```
 kubectl get pods -n kube-system -w
 ```
 
-`--record`  Add the current command as an annotation to the resource. The recorded change is useful for future introspection. For example, to see the commands executed in each Deployment revision:
+`--record ` Add the current command as an annotation to the resource. The recorded change is useful for future introspection. For example, to see the commands executed in each Deployment revision:
 
-```text
+```
 #it would add CHANGE-CAUSE
 kubectl create -f deployment-definition.yml --record 
 
@@ -611,7 +611,7 @@ kubectl rollout history deployment/myapp-deployment
 
 `-h` for getting help:
 
-```text
+```
 kubectl -h
 kubectl create -h
 kubectl run -h
@@ -619,7 +619,7 @@ kubectl run -h
 
 explain command is always handy:
 
-```text
+```
 kubectl explain deployment
 kubectl explain deployment.spec
 kubectl explain deployment.spec.strategy
@@ -634,4 +634,3 @@ good luck!
 .
 
 Collected by Payam Borosan
-
